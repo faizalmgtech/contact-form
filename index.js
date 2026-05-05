@@ -10,11 +10,15 @@ const app = express();
 // Parse incoming JSON data from the form
 app.use(express.json());
 
-
 // Without this, browsers block cross-origin requests
 app.use(
   cors({
-    origin:  ["http://mindglobetech.com", "http://www.mindglobetech.com"],
+    origin: [
+      "http://127.0.0.1:5500", // Live Server
+      "http://localhost:5500",
+      "http://mindglobetech.com",
+      "http://www.mindglobetech.com",
+    ],
   }),
 );
 
@@ -33,15 +37,13 @@ app.get("/", (req, res) => {
 //   },
 // });
 
-
-
 const transporter = nodemailer.createTransport({
   host: "smtp.office365.com",
   port: 587,
   secure: false,
   auth: {
     user: process.env.EMAIL,
-    pass: process.env.EMAIL_PASS, 
+    pass: process.env.EMAIL_PASS,
   },
 });
 
@@ -56,7 +58,6 @@ app.post("/contact", async (req, res) => {
   }
 
   try {
-   
     await transporter.sendMail({
       from: process.env.EMAIL, // shows sender name in inbox
       to: process.env.TO_EMAIL, //  email receives it
@@ -79,7 +80,6 @@ app.post("/contact", async (req, res) => {
     // Tell the frontend it was successful
     res.json({ success: true });
   } catch (error) {
-    
     // console.error("Full error:", error); // shows full error object
     // console.error("Error message:", error.message); // shows exact reason
     // console.error("Error code:", error.code); //  shows error code
