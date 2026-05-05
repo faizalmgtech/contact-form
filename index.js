@@ -6,6 +6,7 @@ const rateLimit = require("express-rate-limit");
 const validator = require("validator");
 
 const app = express();
+app.set("trust proxy", 1);
 app.use(express.json());
 
 app.use(
@@ -59,7 +60,7 @@ app.post("/contact", async (req, res) => {
   resend.emails
     .send({
       from: "MindGlobe Tech <onboarding@resend.dev>", // ✅ no domain verification needed
-      to: process.env.TO_EMAIL, // contact@mindglobetech.com
+      to: process.env.TO_EMAIL, 
       replyTo: email, // reply goes to user
       subject: `Inquiry from ${safeName} — ${topic}`,
       html: `
