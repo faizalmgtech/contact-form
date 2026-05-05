@@ -23,8 +23,9 @@ app.use(
 );
 
 // Health check — visit Render URL to confirm it's running
+
 app.get("/", (req, res) => {
-  res.send("MindGlobe contact backend is running ✅");
+  res.status(200).send("MindGlobe contact backend is running ✅");
 });
 
 // Gmail transporter — uses credentials stored in environment variables
@@ -87,6 +88,5 @@ app.post("/contact", async (req, res) => {
   }
 });
 
-// Render automatically sets PORT — always use process.env.PORT in hosted environments
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+const PORT = process.env.PORT || 8080;
+app.listen(PORT, "0.0.0.0", () => console.log(`Server running on port ${PORT}`));
