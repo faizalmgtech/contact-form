@@ -80,9 +80,9 @@ app.post("/contact", async (req, res) => {
     // Tell the frontend it was successful
     res.json({ success: true });
   } catch (error) {
-    // console.error("Full error:", error); // shows full error object
-    // console.error("Error message:", error.message); // shows exact reason
-    // console.error("Error code:", error.code); //  shows error code
+    console.error("Full error:", error); // shows full error object
+    console.error("Error message:", error.message); // shows exact reason
+    console.error("Error code:", error.code); //  shows error code
     res.status(500).json({ error: "Failed to send email. Please try again." });
   }
 });
